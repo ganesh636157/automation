@@ -1,7 +1,11 @@
 from selenium.webdriver.common.by import By
 import time
 from selenium.webdriver.support.ui import Select
-class TestOne:
+
+from Basefiles.baseclass import baseclass1
+
+
+class TestOne(baseclass1):
     xpath1 = "//input[@class='search-keyword']"
     xpath2 = "//h4[@class='product-name']"
 
@@ -9,6 +13,8 @@ class TestOne:
         self.driver=driver
     def first(self,text):
         self.driver.find_element(By.XPATH,self.xpath1).send_keys(text)
+        #log = self.test_loggingDemo()
+        #log.info(self.driver.get_screenshot_as_png())
         time.sleep(4)
     def second(self):
         self.veg_names = self.driver.find_elements(By.XPATH,self.xpath2)
@@ -39,22 +45,23 @@ class TestOne:
             self.total = sum(self.A5)
             #print("total_Amount=",self.total)
 
-    def fourth(self,vochure):
-        self.driver.find_element(By.CSS_SELECTOR, ".promoCode").send_keys(vochure)
+    def fourth(self):
+        self.driver.find_element(By.CSS_SELECTOR, ".promoCode").send_keys("rahulshettyacademy")
         self.driver.find_element(By.CSS_SELECTOR, ".promoBtn").click()
         time.sleep(10)
         self.amount = self.driver.find_element(By.CSS_SELECTOR, ".totAmt")
-        print("total_amount=",self.amount.text)
+        print("total_amount="+self.amount.text)
         self.H = self.driver.find_element(By.CSS_SELECTOR, ".discountAmt")
-        print("discount_amount=",self.H.text)
+        print("discount_amount="+self.H.text)
         #self.driver.find_element(By.CSS_SELECTOR, "//button[text()='Place Order']").click()
         time.sleep(4)
     def fifth(self):
+        log=self.test_loggingDemo()
 
         if int(self.total) > float(self.H.text):
-            print("Discount applied")
+            log.info("Discount applied")
         else:
-            print("discount not applied")
+            log.info("discount not applied")
     def six(self):
         self.driver.execute_script("window.scrollBy(0,2000)", "")
         time.sleep(4)
@@ -66,10 +73,10 @@ class TestOne:
     def eigth(self,Country):
         # Locate the dropdown element
         self.dropdown = self.driver.find_element(By.XPATH,"//div/select")  # Replace with the actual ID of the dropdown
-
         # Create a Select object
         self.select = Select(self.dropdown)
+        time.sleep(2)
         self.select.select_by_value(Country)
+        time.sleep(2)
         self.driver.find_element(By.CSS_SELECTOR,".chkAgree").click()
         self.driver.find_element(By.XPATH,"//button").click()
-        time.sleep(3)
