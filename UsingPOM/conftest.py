@@ -24,3 +24,6 @@ def getData(request):
 #@pytest.fixture(params=[("India","Aruba","Fiji"),("Aruba","India","Fiji")])
 #def getData(request):
     #return request.param
+
+#java -jar jenkins.war -httpPort=8080
+#python -m pip install pytest
